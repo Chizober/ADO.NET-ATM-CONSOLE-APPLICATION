@@ -32,11 +32,11 @@ namespace ATM_DATA
 
             bool IsValid = false;
 
-            string VerifyUser = "SELECT *  FROM Users WHERE CardNumber = @CardNumber AND Pin = @Pin";
+            string UserInfo = "SELECT *  FROM Users WHERE CardNumber = @CardNumber AND Pin = @Pin";
 
             SqlConnection sqlConn = _dbContext.OpenConnection();
 
-            using (SqlCommand command = new SqlCommand(VerifyUser, sqlConn))
+            using (SqlCommand command = new SqlCommand(UserInfo, sqlConn))
             {
                 try
                 {
@@ -150,7 +150,7 @@ namespace ATM_DATA
                     DateTime TransactionTime = DateTime.Now;
 
                     string updateQuery = "UPDATE Users SET Balance = @balance WHERE CardNumber = @cardNumber AND Pin = @pin";
-                    /*using (SqlCommand updateCommand = new SqlCommand(updateQuery, sqlConn))
+                    using (SqlCommand updateCommand = new SqlCommand(updateQuery, sqlConn))
                     {
                         updateCommand.Parameters.AddWithValue("@balance", Balance);
                         updateCommand.Parameters.AddWithValue("@cardNumber", UsersDetails.CardNumber);
@@ -158,7 +158,7 @@ namespace ATM_DATA
                         updateCommand.ExecuteNonQuery();
                     }
 
-
+                    /*
                     string InsertHistoryQuery = @"INSERT INTO Transaction_History (UserCardNumber, TransactionType, Amount, Date)
                                                    VALUES (@UserCardNumber, @TransactionType, @Amount, @Date)";
 
